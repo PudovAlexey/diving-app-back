@@ -1,5 +1,6 @@
 from sqlalchemy import MetaData, Integer, String, TIMESTAMP, ForeignKey, Table, Column, JSON, Boolean
 from datetime import datetime
+
 metadata = MetaData()
 
 role = Table(

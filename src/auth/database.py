@@ -1,4 +1,5 @@
 from typing import AsyncGenerator
+from .models import User
 from sqlalchemy import Column, String, Boolean, Integer, ForeignKey, TIMESTAMP
 from fastapi import Depends
 from datetime import datetime
@@ -6,7 +7,6 @@ from fastapi_users.db import SQLAlchemyBaseUserTableUUID, SQLAlchemyUserDatabase
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
-from src.auth.models import role
 from config import DB_USER, DB_PASS, DB_PORT, DB_HOST, DB_NAME
 
 DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
@@ -14,18 +14,6 @@ DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{D
 
 class Base(DeclarativeBase):
     pass
-
-
-class User(SQLAlchemyBaseUserTable[int], Base):
-    id = Column(Integer, primary_key=True)
-    username = Column(String, nullable=False)
-    registered_at = Column(TIMESTAMP, default=datetime.utcnow)
-    role_id = Column(Integer, ForeignKey(role.c.id))
-    email: str = Column(String(length=320), unique=True, index=True, nullable=False)
-    hashed_password: str = Column(String(length=1024), nullable=False)
-    is_active: bool = Column(Boolean, default=True, nullable=False)
-    is_superuser: bool = Column(Boolean, default=False, nullable=False)
-    is_verified: bool = Column(Boolean, default=False, nullable=False)
 
 
 engine = create_async_engine(DATABASE_URL)

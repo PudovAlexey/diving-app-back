@@ -1,11 +1,12 @@
 from sqlalchemy import Column, Integer, String, MetaData
+from sqlalchemy.orm import relationship
 from src.database import Base
 
 metadata = MetaData()
 
 
-class Image(Base):
-    __tablename__ = "image"
+class Avatar(Base):
+    __tablename__ = "avatar"
     id = Column(Integer, primary_key=True, index=True)
     path = Column(String, nullable=False)
     name = Column(String, nullable=False)

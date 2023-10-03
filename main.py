@@ -1,15 +1,12 @@
 from fastapi import Depends, FastAPI
-from pydantic import BaseModel, Field
-from typing import List
-from fastapi_users import FastAPIUsers
-import fastapi_users
-from src.auth.manager import get_user_manager
-from src.auth.auth import auth_backand
+
 from src.auth.schemas import UserCreate, UserRead
+from fastapi.middleware.cors import CORSMiddleware
+
 
 from src.image.router import router as image_router
-
-from fastapi.middleware.cors import CORSMiddleware
+from src.users.router import router as user_router
+from src.auth.router import router as auth_router, JWT_router as jwt_router
 
 
 app = FastAPI(title="diving app")
@@ -25,27 +22,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-class User(BaseModel):
-    id: int
-    role: str
-    name: str
-
-fastapi_users = FastAPIUsers[User, int](
-    get_user_manager,
-    [auth_backand]
-)
-
-app.include_router(
-    fastapi_users.get_auth_router(auth_backand),
-    prefix="/auth/jwt",
-    tags=['auth'],
-)
-
-app.include_router(
-    fastapi_users.get_register_router(UserRead, UserCreate),
-    prefix="/auth",
-    tags=['auth'],
-)
-
+app.include_router(jwt_router)
+app.include_router(auth_router)
 app.include_router(image_router)
+app.include_router(user_router)

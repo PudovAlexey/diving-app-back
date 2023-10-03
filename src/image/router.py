@@ -1,5 +1,5 @@
 from fastapi import UploadFile
-from models import Image
+from src.image.models import Image
 from sqlalchemy.ext.asyncio import AsyncSession
 import os
 

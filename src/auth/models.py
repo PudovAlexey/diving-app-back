@@ -1,9 +1,13 @@
 from sqlalchemy import MetaData, Integer, String, TIMESTAMP, ForeignKey, Table, Column, JSON, Boolean
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
+from sqlalchemy.orm import relationship
 from datetime import datetime
 from src.database import Base
+from src.userInfo.models import UserInfo
+
 
 metadata = MetaData()
+
 
 class Role(Base):
     __tablename__ = "role"
@@ -11,7 +15,7 @@ class Role(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     Permissions = Column(JSON)
-  
+
 
 class User(SQLAlchemyBaseUserTable[int], Base):
     __tablename__ = "user"
@@ -25,3 +29,5 @@ class User(SQLAlchemyBaseUserTable[int], Base):
     is_active: bool = Column(Boolean, default=True, nullable=False)
     is_superuser: bool = Column(Boolean, default=False, nullable=False)
     is_verified: bool = Column(Boolean, default=False, nullable=False)
+    user_info_id = Column(Integer, ForeignKey(UserInfo.id))
+    user_info = relationship(UserInfo)

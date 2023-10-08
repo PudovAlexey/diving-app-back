@@ -1,3 +1,6 @@
+from fastapi_cache import FastAPICache
+from fastapi_cache.backends.redis import RedisBackend
+from redis import asyncio as aioredis
 from fastapi import Depends, FastAPI
 
 from src.auth.schemas import UserCreate, UserRead
@@ -26,3 +29,8 @@ app.include_router(jwt_router)
 app.include_router(auth_router)
 app.include_router(image_router)
 app.include_router(user_router)
+
+@app.on_event("startup")
+async def startup():
+    redis = aioredis.from_url("redis://localhost")
+    FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")

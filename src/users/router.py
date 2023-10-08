@@ -7,6 +7,7 @@ from src.auth.models import User
 from src.userInfo.models import UserInfo
 from sqlalchemy.orm import joinedload
 from src.mailer.main import send_email
+from .queries import user_by_id_query
 
 router = APIRouter(
     prefix="/users",
@@ -35,10 +36,4 @@ async def get_all_users(session: AsyncSession = Depends(get_async_session)):
 
 @router.get("/{id}")
 async def get_user_by_id(id: int, session: AsyncSession = Depends(get_async_session)):
-    query = select(User).where(User.id == id)
-    result = await session.execute(query)
-    return {
-        "status": "success",
-        "data": result.scalars().one(),
-        "details": None
-    }
+    return await user_by_id_query(id, session)

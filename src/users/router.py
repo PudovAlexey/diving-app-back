@@ -14,13 +14,6 @@ router = APIRouter(
     tags=["User"]
 )
 
-@router.get("/register_confirm")
-async def confirm_password():
-    send_email(to="pudo-aleksej@yandex.ru", subject="hello world", message_text="fuck you")
-
-    return "success"
-
-
 
 @router.get("/")
 async def get_all_users(session: AsyncSession = Depends(get_async_session)):

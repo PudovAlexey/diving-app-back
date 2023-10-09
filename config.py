@@ -19,3 +19,6 @@ EMAIL_PORT = os.environ.get('EMAIL_PORT')
 EMAIL_SERVER = os.environ.get('EMAIL_SERVER')
 
 USER_MENEGER_SECRET=os.environ.get('USER_MENEGER_SECRET')
+
+REDIS_HOST = os.environ.get('REDIS_HOST')
+REDIS_PORT = os.environ.get('REDIS_PORT')

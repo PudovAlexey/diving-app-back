@@ -3,6 +3,7 @@ from config import EMAIL, EMAIL_PASSWORD, EMAIL_PORT, EMAIL_SERVER
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+
 def send_email(to: str, subject: str, message_text: str):
     message = MIMEMultipart()
 

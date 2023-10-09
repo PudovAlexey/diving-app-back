@@ -2,6 +2,7 @@ from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 from redis import asyncio as aioredis
 from fastapi import Depends, FastAPI
+from config import REDIS_HOST, REDIS_PORT
 
 from src.auth.schemas import UserCreate, UserRead
 from fastapi.middleware.cors import CORSMiddleware

@@ -1,5 +1,5 @@
 from fastapi import UploadFile
-from models import Image
+from src.image.models import Image
 from sqlalchemy.ext.asyncio import AsyncSession
 import os
 
@@ -25,7 +25,7 @@ class Item(BaseModel):
 
 @router.post("/")
 async def create_item(file: UploadFile, session: AsyncSession = Depends(get_async_session)):
-    data = Image(path='John Doe', name="user", description="new Test")
+    Image(path='John Doe', name="user", description="new Test")
 
     stmt = insert(Image).values(path='John Doe', name="user", description="new Test")
 

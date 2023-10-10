@@ -1,7 +1,14 @@
+from enum import Enum
 from typing import Optional
 import uuid
 
 from fastapi_users import schemas
+from pydantic import BaseModel
+
+class UserModel(BaseModel):
+    id: int
+    role: str
+    name: str
 
 
 class UserRead(schemas.BaseUser[uuid.UUID]):

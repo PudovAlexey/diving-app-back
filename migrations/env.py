@@ -10,6 +10,8 @@ from config import DB_HOST, DB_PORT, DB_USER, DB_NAME, DB_PASS
 
 from src.auth.models import metadata as auth_metadata
 from src.image.models import metadata as image_metadata
+from src.userInfo.models import metadata as user_info_metadata
+from src.avatar.models import metadata as avatar
 from src.database import Base as base
 
 # this is the Alembic Config object, which provides

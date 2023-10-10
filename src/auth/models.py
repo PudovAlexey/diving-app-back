@@ -1,12 +1,20 @@
-from enum import Enum
-from sqlalchemy import MetaData, Integer, String, TIMESTAMP, ForeignKey, Table, Column, JSON, Boolean, Enum as AlchemyEnum
-from sqlalchemy.dialects.postgresql import ENUM as pgEnum
-from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 from sqlalchemy.orm import relationship
-from datetime import datetime
-from src.database import Base, engine
+from enum import Enum
+from sqlalchemy import (
+    MetaData,
+    Integer,
+    String,
+    TIMESTAMP,
+    ForeignKey,
+    Column,
+    JSON,
+    Boolean,
+    Enum as AlchemyEnum,
+)
+from src.database import Base
 from src.userInfo.models import UserInfo
-
+from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
+from datetime import datetime
 
 metadata = MetaData()
 
@@ -18,9 +26,10 @@ class Role(Base):
     name = Column(String, nullable=False)
     Permissions = Column(JSON)
 
+
 class GenderEnum(Enum):
-    MALE = 'male'
-    FEMALE = 'female'
+    MALE = "male"
+    FEMALE = "female"
 
 
 class User(SQLAlchemyBaseUserTable[int], Base):

@@ -1,17 +1,13 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
+
 from redis import asyncio as aioredis
-from fastapi import Depends, FastAPI
-from config import REDIS_HOST, REDIS_PORT
-
-from src.auth.schemas import UserCreate, UserRead
-from fastapi.middleware.cors import CORSMiddleware
-
-
+from src.auth.router import JWT_router as jwt_router
+from src.auth.router import router as auth_router
 from src.image.router import router as image_router
 from src.users.router import router as user_router
-from src.auth.router import router as auth_router, JWT_router as jwt_router
-
 
 app = FastAPI(title="diving app")
 
